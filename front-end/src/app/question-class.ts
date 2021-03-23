@@ -1,3 +1,5 @@
+
+
 export class QuestionClass {
     "id" ?: number;
     "question": string;
@@ -9,5 +11,3 @@ export class QuestionClass {
     "selected" ?: string;
 
 }
-
-

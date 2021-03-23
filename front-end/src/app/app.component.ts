@@ -13,8 +13,9 @@ import { QuestionClass } from './question-class';
 export class AppComponent implements OnInit{
   public isQuestionCardShow = false;
 	public totalAnswered = 0;
-	public rightAnswer: number;
-	questionObj = new QuestionClass();
+	public rightAnswer =0;
+	public test = new QuestionClass();
+	public questionObj: Array<any>=[];
 	@ViewChild('submitModal')
   submitModal!: ModalDirective;
 	@ViewChild('addQuestionModal')
@@ -25,7 +26,10 @@ export class AppComponent implements OnInit{
 	@ViewChild('questionTest') questionTest : any;
 
   constructor() {
-    this.rightAnswer = 0;
+	  
+    for (let i = 0; i < 8; i++) {
+		this.questionObj.push(new QuestionClass());
+	  }
    }
    allQuestions: any = [{
 		"id": 1,
