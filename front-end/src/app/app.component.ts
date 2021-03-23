@@ -1,14 +1,16 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ModalDirective } from '../../node_modules/ngx-bootstrap/modal';
 import { QuestionClass } from './question-class';
-import { ModalDirective } from 'ngx-bootstrap/modal';
-// import { ToastrService } from 'ngx-toastr';
+
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   public isQuestionCardShow = false;
 	public totalAnswered = 0;
 	public rightAnswer: number;
@@ -53,10 +55,23 @@ export class AppComponent {
 		"answer": "b"
 	}
 	];
-   addQuestion(){
-		this.addQuestionModal.show();
+	submitTest() {
+		this.rightAnswer = 0;
+		this.totalAnswered = 0;
+		for (let i = 0; i < this.allQuestions.length; i++) {
+			if ("selected" in this.allQuestions[i] && (this.allQuestions[i]["selected"] != null)) {
+				this.totalAnswered++;
+				if (this.allQuestions[i]["selected"] == this.allQuestions[i]["answer"]) {
+					this.rightAnswer++;
+				}
+			}
+
+		}
+		this.submitModal.show();
+
 	}
-   startQuiz() {
+
+	startQuiz() {
 		for (let i = 0; i < this.allQuestions.length; i++) {
 			if ("selected" in this.allQuestions[i]) {
 				delete this.allQuestions[i]["selected"];
@@ -67,11 +82,29 @@ export class AppComponent {
 		this.isQuestionCardShow = true;
 
 	}
-  HomePage(){
+	HomePage() {
+		this.isQuestionCardShow = false;
+	}
+	addQuestion(){
+		this.addQuestionModal.show();
+	}
+	submitAddQuestion(){
+		const quesTemp = JSON.parse(JSON.stringify(this.questionObj));
+		quesTemp["id"] = this.allQuestions.length+1;
+		this.allQuestions.push(quesTemp);
+		this.questionForm.reset();
+	//	this.toastr.success("Question Added Successfully!!");
+		this.addQuestionModal.hide();
 
-  }
-  createTest(){
-    
-  }
-  submitTest(){}
+	}
+	checkAnswers(){
+		this.submitModal.hide();
+		this.answerModal.show();
+	}
+
+	ngOnInit() {
+	}
+	createTest(){
+		this.addQuestionModal.show();
+	}
 }

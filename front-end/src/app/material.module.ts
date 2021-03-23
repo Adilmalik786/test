@@ -1,5 +1,8 @@
-
+// import { BidiModule } from '@angular/cdk/bidi';
+// import { OverlayModule } from '@angular/cdk/overlay';
 import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
@@ -32,9 +35,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     // BidiModule,
     // OverlayModule,
 
+    // Layout
+    FlexLayoutModule,
 
     // Material
     MatButtonToggleModule,
+    MatAutocompleteModule,
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
@@ -65,9 +71,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     // CdkTableModule,
     // OverlayModule,
 
+    // Layout
+    FlexLayoutModule,
 
     // Material
     MatButtonToggleModule,
+    MatAutocompleteModule,
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
