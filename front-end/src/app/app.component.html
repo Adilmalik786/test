@@ -222,7 +222,7 @@
                 <div class="form-group">
                   <label for="a">Enter Answer</label>
                   <span style="color:red;" [hidden]="!(testAnswer?.invalid)">*</span>
-                  <input type="text" class="form-control" name="testAnswer-{{i+j}}" placeholder="Enter Answer" [(ngModel)]="answerObj[i+j].answer" [ngClass]="{
+                  <input type="text" class="form-control" name="testAnswer-{{j}}" placeholder="Enter Answer" [(ngModel)]="answerObj[j].answer" [ngClass]="{
                                 'is-invalid': testAnswer?.invalid && (testAnswer?.dirty ||testAnswer?.touched),
                                 'is-valid': testAnswer?.valid && (testAnswer?.dirty || testAnswer?.touched)
                            }" #testAnswer="ngModel" required>
