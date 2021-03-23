@@ -7,8 +7,9 @@ export class TestsController {
     constructor(private testService: TestService) {
     }
 
-    @Post()
-    async createPackage(@Body() createTestDto: CreateTestDto): Promise<any> {
+    @Post('CreateTest')
+    async createPackage(@Body() createTestDto:CreateTestDto): Promise<any> {
+        console.log('===============:', createTestDto);
         return this.testService.createTest(createTestDto);
     }
 

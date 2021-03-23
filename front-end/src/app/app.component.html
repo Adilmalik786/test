@@ -25,6 +25,29 @@
     <div  class="modal-content">
       <div class="modal-body text-center" style="color: #196f77;">
         <form #questionForm="ngForm"  novalidate>
+        
+          <div class="form-group mb-3">
+          <label for="test" class="label-font">Test Name</label>
+            <span style="color:red;" [hidden]="!(testName?.invalid)">*</span>
+            <input type="text" class="form-control"  name="test-name" placeholder="Enter Question" [(ngModel)]="createdTest" [ngClass]="{
+                  'is-invalid': testName?.invalid && (testName?.dirty ||testName?.touched),
+                    'is-valid': testName?.valid && (testName?.dirty || testName?.touched)
+             }" #testName="ngModel" required>
+            <div class="invalid-feedback" *ngIf="testName.errors && (testName.dirty || testName.touched)">
+              <p *ngIf="testName.errors.required">Test Name is Required</p>
+            </div>
+
+            <label for="question" class="label-font">Test Description</label>
+            <span style="color:red;" [hidden]="!(testdesc?.invalid)">*</span>
+            <input type="text" class="form-control"  name="test-desc" placeholder="Enter Question" [(ngModel)]="testDescription" [ngClass]="{
+                  'is-invalid': testdesc?.invalid && (testdesc?.dirty ||testdesc?.touched),
+                    'is-valid': testdesc?.valid && (testdesc?.dirty || testdesc?.touched)
+             }" #testdesc="ngModel" required>
+            <div class="invalid-feedback" *ngIf="testdesc.errors && (testdesc.dirty || testdesc.touched)">
+              <p *ngIf="testdesc.errors.required">Test Description is Required</p>
+            </div>
+          </div>
+ 
           <div  *ngFor="let i of [1,2,3,4]">
           <div class="row">
             <div class="col-sm-12 col-12 col-lg-12">
@@ -46,7 +69,7 @@
               <div class="form-group">
                 <label for="a">Option a.</label>
                 <span style="color:red;" [hidden]="!(a?.invalid)">*</span>
-                <input type="text" class="form-control" name="a-{{i}}" placeholder="Enter First Option" [(ngModel)]="questionObj[i-1].a" [ngClass]="{
+                <input type="text" class="form-control" name="a-{{i-1}}" placeholder="Enter First Option" [(ngModel)]="questionObj[i-1].a" [ngClass]="{
                               'is-invalid': a?.invalid && (a?.dirty ||a?.touched),
                               'is-valid': a?.valid && (a?.dirty || a?.touched)
                          }" #a="ngModel" required>
@@ -59,7 +82,7 @@
               <div class="form-group">
                 <label for="b">Option b.</label>
                 <span style="color:red;" [hidden]="!(b?.invalid)">*</span>
-                <input type="text" class="form-control" name="b-{{i}}" placeholder="Enter Second Option" [(ngModel)]="questionObj[i-1].b" [ngClass]="{
+                <input type="text" class="form-control" name="b-{{i-1}}" placeholder="Enter Second Option" [(ngModel)]="questionObj[i-1].b" [ngClass]="{
                           'is-invalid': b?.invalid && (b?.dirty ||b?.touched),
                           'is-valid': b?.valid && (b?.dirty || b?.touched)
                      }" #b="ngModel" required>
@@ -74,7 +97,7 @@
               <div class="form-group">
                 <label for="c">Option c.</label>
                 <span style="color:red;" [hidden]="!(c?.invalid)">*</span>
-                <input type="text" class="form-control" name="c-{{i}}" placeholder="Enter Third Option" [(ngModel)]="questionObj[i-1].c" [ngClass]="{
+                <input type="text" class="form-control" name="c-{{i-1}}" placeholder="Enter Third Option" [(ngModel)]="questionObj[i-1].c" [ngClass]="{
                                 'is-invalid': c?.invalid && (c?.dirty ||c?.touched),
                                 'is-valid': c?.valid && (c?.dirty || c?.touched)
                            }" #c="ngModel" required>
@@ -87,7 +110,7 @@
               <div class="form-group">
                 <label for="b">Option d.</label>
                 <span style="color:red;" [hidden]="!(d?.invalid)">*</span>
-                <input type="text" class="form-control" name="d-{{i}}" placeholder="Enter fourth Option" [(ngModel)]="questionObj[i-1].d" [ngClass]="{
+                <input type="text" class="form-control" name="d-{{i-1}}" placeholder="Enter fourth Option" [(ngModel)]="questionObj[i-1].d" [ngClass]="{
                             'is-invalid': d?.invalid && (d?.dirty ||d?.touched),
                             'is-valid': d?.valid && (d?.dirty || d?.touched)
                        }" #d="ngModel" required>
@@ -104,19 +127,19 @@
             </label>
             <div class="col-md-12">
               <div class="form-check form-check-inline mr-2">
-                <input class="form-check-input m-r" type="radio" name="answer" value="a" [(ngModel)]="questionObj[i-1].answer" #answer="ngModel" required>
+                <input class="form-check-input m-r" type="radio" name="option-{{i}}" value="a" [(ngModel)]="questionObj[i-1].answer" #answer="ngModel" required>
                 <label class="form-check-label">a.</label>
               </div>
               <div class="form-check form-check-inline mr-2">
-                <input class="form-check-input m-r" type="radio" name="answer" value="b" [(ngModel)]="questionObj[i-1].answer" #answer="ngModel" required>
+                <input class="form-check-input m-r" type="radio" name="option-{{i}}" value="b" [(ngModel)]="questionObj[i-1].answer" #answer="ngModel" required>
                 <label class="form-check-label">b.</label>
               </div>
               <div class="form-check form-check-inline mr-2">
-                <input class="form-check-input m-r" type="radio" name="answer" value="c" [(ngModel)]="questionObj[i-1].answer" #answer="ngModel" required>
+                <input class="form-check-input m-r" type="radio" name="option-{{i}}" value="c" [(ngModel)]="questionObj[i-1].answer" #answer="ngModel" required>
                 <label class="form-check-label">c.</label>
               </div>
               <div class="form-check form-check-inline mr-2">
-                <input class="form-check-input m-r" type="radio" name="answer" value="d" [(ngModel)]="questionObj[i-1].answer" #answer="ngModel" required>
+                <input class="form-check-input m-r" type="radio" name="option-{{i}}" value="d" [(ngModel)]="questionObj[i-1].answer" #answer="ngModel" required>
                 <label class="form-check-label">d.</label>
               </div>
             </div>
@@ -142,13 +165,13 @@
             <div class="col-sm-12 col-12 col-lg-12">
               <div class="form-group">
                 <label for="a">Correct Answer</label>
-                <span style="color:red;" [hidden]="!(a?.invalid)">*</span>
-                <input type="text" class="form-control" name="a" placeholder="Enter Answer" [(ngModel)]="questionObj[i-1].a" [ngClass]="{
-                              'is-invalid': a?.invalid && (a?.dirty ||a?.touched),
-                              'is-valid': a?.valid && (a?.dirty || a?.touched)
-                         }" #a="ngModel" required>
-                <div class="invalid-feedback" *ngIf="a.errors && (a.dirty || a.touched)">
-                  <p *ngIf="a.errors.required">Answer is required</p>
+                <span style="color:red;" [hidden]="!(answer?.invalid)">*</span>
+                <input type="text" class="form-control" name="answer-{{i}}" placeholder="Enter Answer" [(ngModel)]="questionObj[i-1].answer" [ngClass]="{
+                              'is-invalid': answer?.invalid && (answer?.dirty ||answer?.touched),
+                              'is-valid': answer?.valid && (answer?.dirty || answer?.touched)
+                         }" #answer="ngModel" required>
+                <div class="invalid-feedback" *ngIf="answer.errors && (answer.dirty || answer.touched)">
+                  <p *ngIf="answer.errors.required">Answer is required</p>
                 </div>
               </div>
             </div>
@@ -160,7 +183,7 @@
         </form>
         <span>
           <button type="button" class="btn btn-primary" (click)="submitAddQuestion()" [disabled]="questionForm.invalid" [class.cursor-restriction]="questionForm.invalid"
-            style="margin-right: 17px;">ADD Question</button>
+            style="margin-right: 17px;">Create Test</button>
         </span>
         <button type="button" class="btn btn-default" (click)="addQuestionModal.hide()">Close</button>
       </div>

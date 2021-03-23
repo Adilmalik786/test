@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
 import { ModalDirective } from '../../node_modules/ngx-bootstrap/modal';
 import { QuestionClass } from './question-class';
-
+import {TestService} from './shared/services/test.service';
 
 
 @Component({
@@ -12,6 +11,8 @@ import { QuestionClass } from './question-class';
 })
 export class AppComponent implements OnInit{
   public isQuestionCardShow = false;
+    public createdTest = '';
+	public testDescription = '';
 	public totalAnswered = 0;
 	public rightAnswer =0;
 	public test = new QuestionClass();
@@ -25,7 +26,7 @@ export class AppComponent implements OnInit{
 	@ViewChild('questionForm') questionForm: any;
 	@ViewChild('questionTest') questionTest : any;
 
-  constructor() {
+  constructor(public testService: TestService) {
 	  
     for (let i = 0; i < 8; i++) {
 		this.questionObj.push(new QuestionClass());
@@ -94,6 +95,17 @@ export class AppComponent implements OnInit{
 	}
 	submitAddQuestion(){
 		const quesTemp = JSON.parse(JSON.stringify(this.questionObj));
+		const simpleQuestions = quesTemp.filter((el: any)=> !el.hasOwnProperty('a'));
+		const MultipleChoiceQuestions = quesTemp.filter((el: any)=> el.hasOwnProperty('a'));
+		const test = {
+			name: this.createdTest,
+			date: new Date(),
+			Description: this.testDescription,
+			SimpleQuestions: simpleQuestions,
+			MultipleChoiceQuestions: MultipleChoiceQuestions,
+		}
+		console.log('===========:', test);
+	//	this.testService.createTest(quesTemp);
 		quesTemp["id"] = this.allQuestions.length+1;
 		this.allQuestions.push(quesTemp);
 		this.questionForm.reset();

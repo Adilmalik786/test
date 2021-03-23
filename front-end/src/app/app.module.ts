@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import {MaterialModule} from './material.module'
 
-
+import {TestService} from './shared/services/test.service'
 
 
 @NgModule({
@@ -31,7 +31,7 @@ import {MaterialModule} from './material.module'
     AccordionModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [TestService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
