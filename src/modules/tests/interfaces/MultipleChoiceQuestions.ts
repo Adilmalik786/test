@@ -1,10 +1,8 @@
 export interface MultipleChoiceQuestions {
-    id : string;
-    Question: string;
-    A: string;
-    B: string;
-    C: string;
+    question: string;
+    a: string;
+    b: string;
+    c: string;
     d: string;
-    Answer: string;
-    Selected : string;
+    answer: string;
   }

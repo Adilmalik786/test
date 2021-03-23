@@ -104,8 +104,8 @@ export class AppComponent implements OnInit{
 			SimpleQuestions: simpleQuestions,
 			MultipleChoiceQuestions: MultipleChoiceQuestions,
 		}
-		console.log('===========:', test);
-	//	this.testService.createTest(quesTemp);
+		
+		this.testService.createTest(test);
 		quesTemp["id"] = this.allQuestions.length+1;
 		this.allQuestions.push(quesTemp);
 		this.questionForm.reset();

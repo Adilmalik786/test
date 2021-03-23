@@ -1,5 +1,4 @@
 export interface SimpleQuestion {
-    id: string;
-    Question: string;
-    Answer: string;
+    question: string;
+    answer: string;
   }

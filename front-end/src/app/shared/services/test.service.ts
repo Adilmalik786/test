@@ -19,10 +19,10 @@ export class TestService {
  
 
   public async createTest(data:any) {
-    return this.http.post<any>(`${environment.url}/CreateTest`, {data}).toPromise();
+    return this.http.post<any>(`${environment.url}/tests/CreateTest`, data).toPromise();
   }
 
-  public async saveUserSettings(data:any) {
-    return this.http.post<any>('/SaveSettings', data).toPromise();
+  public async getTestsRecords(data:any) {
+    return this.http.post<any>('/GetTests', data).toPromise();
   }
 }

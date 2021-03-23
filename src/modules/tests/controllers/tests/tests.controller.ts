@@ -15,7 +15,6 @@ export class TestsController {
 
     @Get()
     async getAllTests():  Promise <any>{
-        return {id: 'aaaOOOOOOa'}
         return this.testService.getAllTests();
     }
 
