@@ -16,13 +16,12 @@ export class TestService {
     return this.subject.asObservable();
   }
 
- 
 
   public async createTest(data:any) {
     return this.http.post<any>(`${environment.url}/tests/CreateTest`, data).toPromise();
   }
 
-  public async getTestsRecords(data:any) {
-    return this.http.post<any>('/GetTests', data).toPromise();
+  public async getTestsRecords() {
+    return this.http.get<any>(`${environment.url}/tests/GetTests`).toPromise();
   }
 }

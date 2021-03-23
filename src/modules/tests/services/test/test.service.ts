@@ -14,8 +14,8 @@ export class TestService {
     
     }
 
-    getAllTests() {
-        console.log('All Packages are returned!');
+    async getAllTests() {
+        return this.testModel.find();
     }
 
     getPackageDetails(id: any) {

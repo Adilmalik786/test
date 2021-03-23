@@ -18,6 +18,7 @@
       </div>
     </mat-card-content>
   </mat-card>
+  
 </div>
 <div bsModal #addQuestionModal="bs-modal" class="modal fade" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
   aria-labelledby="myModalLabel" aria-hidden="true">
@@ -186,6 +187,62 @@
             style="margin-right: 17px;">Create Test</button>
         </span>
         <button type="button" class="btn btn-default" (click)="addQuestionModal.hide()">Close</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+
+
+<div bsModal #testModal="bs-modal" class="modal fade" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div  class="modal-content">
+      <div class="modal-body text-center" style="color: #196f77;">
+        <form #questionForm="ngForm"  novalidate>
+        
+          <div  *ngFor="let element of allTests; let i = index"  [attr.data-index]="i">
+            <div *ngFor="let simpleQuestions of element['SimpleQuestions']; let j = index">
+            <div class="row">
+              <div class="col-sm-12 col-12 col-lg-12">
+                <div class="form-group">
+                  <label for="question" class="label-font">Question</label>
+                  <span style="color:red;" [hidden]="!(testQuestion?.invalid)">*</span>
+                  <input type="text" class="form-control"  name="test-question-{{j}}" placeholder="{{simpleQuestions['question']}}" disabled="true"  [(ngModel)]="answerObj[i+j].question" [ngClass]="{
+                        'is-invalid': testQuestion?.invalid && (testQuestion?.dirty ||testQuestion?.touched),
+                        'is-valid': testQuestion?.valid && (testQuestion?.dirty || testQuestion?.touched)
+                   }" #testQuestion="ngModel" required>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 col-12 col-lg-12">
+                <div class="form-group">
+                  <label for="a">Enter Answer</label>
+                  <span style="color:red;" [hidden]="!(testAnswer?.invalid)">*</span>
+                  <input type="text" class="form-control" name="testAnswer-{{i+j}}" placeholder="Enter Answer" [(ngModel)]="answerObj[i+j].answer" [ngClass]="{
+                                'is-invalid': testAnswer?.invalid && (testAnswer?.dirty ||testAnswer?.touched),
+                                'is-valid': testAnswer?.valid && (testAnswer?.dirty || testAnswer?.touched)
+                           }" #testAnswer="ngModel" required>
+                  <div class="invalid-feedback" *ngIf="testAnswer.errors && (testAnswer.dirty || testAnswer.touched)">
+                    <p *ngIf="testAnswer.errors.required">Answer is required</p>
+                  </div>
+                </div>
+              </div>
+             
+            </div>
+          </div>
+           
+          </div>
+      
+        </form>
+        <span>
+          <button type="button" class="btn btn-primary" (click)="submitAddQuestion()" [disabled]="questionForm.invalid" [class.cursor-restriction]="questionForm.invalid"
+            style="margin-right: 17px;">Submit</button>
+        </span>
+        <button type="button" class="btn btn-default" (click)="testModal.hide()">Close</button>
       </div>
     </div>
     <!-- /.modal-content -->

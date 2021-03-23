@@ -11,16 +11,20 @@ import {TestService} from './shared/services/test.service';
 })
 export class AppComponent implements OnInit{
   public isQuestionCardShow = false;
+  public allTests= [];
     public createdTest = '';
 	public testDescription = '';
 	public totalAnswered = 0;
 	public rightAnswer =0;
 	public test = new QuestionClass();
 	public questionObj: Array<any>=[];
+	public answerObj: Array<any>=[];
 	@ViewChild('submitModal')
   submitModal!: ModalDirective;
 	@ViewChild('addQuestionModal')
   addQuestionModal!: ModalDirective;
+  @ViewChild('testModal')
+  testModal!: ModalDirective;
 	@ViewChild('answerModal')
   answerModal!: ModalDirective;
 	@ViewChild('questionForm') questionForm: any;
@@ -30,6 +34,9 @@ export class AppComponent implements OnInit{
 	  
     for (let i = 0; i < 8; i++) {
 		this.questionObj.push(new QuestionClass());
+	  }
+	  for (let i = 0; i < 8; i++) {
+		this.answerObj.push(new QuestionClass());
 	  }
    }
    allQuestions: any = [{
@@ -83,7 +90,8 @@ export class AppComponent implements OnInit{
 			}
 
 		}
-		this.questionTest.reset();
+	//	this.questionTest.reset();
+		this.testModal.show();
 		this.isQuestionCardShow = true;
 
 	}
@@ -93,7 +101,7 @@ export class AppComponent implements OnInit{
 	addQuestion(){
 		this.addQuestionModal.show();
 	}
-	submitAddQuestion(){
+	async submitAddQuestion(){
 		const quesTemp = JSON.parse(JSON.stringify(this.questionObj));
 		const simpleQuestions = quesTemp.filter((el: any)=> !el.hasOwnProperty('a'));
 		const MultipleChoiceQuestions = quesTemp.filter((el: any)=> el.hasOwnProperty('a'));
@@ -105,7 +113,8 @@ export class AppComponent implements OnInit{
 			MultipleChoiceQuestions: MultipleChoiceQuestions,
 		}
 		
-		this.testService.createTest(test);
+		await this.testService.createTest(test);
+		
 		quesTemp["id"] = this.allQuestions.length+1;
 		this.allQuestions.push(quesTemp);
 		this.questionForm.reset();
@@ -118,7 +127,9 @@ export class AppComponent implements OnInit{
 		this.answerModal.show();
 	}
 
-	ngOnInit() {
+	async ngOnInit() {
+		this.allTests = await this.testService.getTestsRecords();
+		console.log('=======:', this.allTests);
 	}
 	createTest(){
 		this.addQuestionModal.show();
